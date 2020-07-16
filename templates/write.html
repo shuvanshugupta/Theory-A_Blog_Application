@@ -1,0 +1,236 @@
+{% load static %}
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+<head>
+
+    <!--- basic page needs
+    ================================================== -->
+    <meta charset="utf-8">
+    <title>Theory-Write your Blog here</title>
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- mobile specific metas
+    ================================================== -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- CSS
+    ================================================== -->
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+
+    <!-- script
+    ================================================== -->
+    <script src="{% static 'js/modernizr.js' %}"></script>
+    <script defer src="{% static 'js/fontawesome/all.min.js' %}"></script>
+
+    <!-- favicons
+    ================================================== -->
+    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'apple-touch-icon.png' %}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'favicon-32x32.png' %}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'favicon-16x16.png' %}">
+    <link rel="manifest" href="{% static 'site.webmanifest' %}">
+    <style>
+        body{
+            background-color: white;
+        }
+        label{
+            margin-top: 20px;
+            margin-left: 160px;
+        }
+        input[type="text"],input[list]{
+            margin-left: 160px;
+            height: 40px;
+            width:500px;
+            outline: none;
+            font-family: "Open Sans", sans-serif;
+            font-size: 1.422rem;
+            line-height: 3.2rem;
+            border: 1px solid darkgrey;
+            background-color: #efefef;
+            padding: 1.3rem 23px 1.5rem;
+            border-radius: 4px;
+        }
+        input[type="text"]:focus,input[list]:focus{
+            color: #000000;
+            -webkit-box-shadow: 0 0 5px #6ba441;
+            box-shadow: 0 0 5px #6ba441;
+            border: 1px solid #6ba441;
+        }
+        textarea{
+            margin-left: 160px;
+            border-color:darkgrey;
+        }
+        input[type="submit"]{
+            margin-left: 160px;
+            height: 80px;
+            width: 200px;
+        }
+    </style>
+</head>
+<body>
+    {% csrf_token %}
+    <!-- Header
+    ================================================== -->
+    <header class="s-header">
+
+        <div class="row">
+
+            <div class="s-header__content column">
+                <h1 class="s-header__logotext">
+                    <a href="{% url 'index' %}" title="">Theory.</a>
+                </h1>
+                <p class="s-header__tagline">The Frontier's Blog.</p>
+            </div>
+
+        </div> <!-- end row -->
+
+       <nav class="s-header__nav-wrap">
+
+           <div class="row">
+
+                <ul class="s-header__nav">
+                    <li><a href="{% url 'index' %}">Home</a></li>
+                    <li class="current"><a href="{% url 'write' %}">Write your blog here</a></li>	
+                    <li class="has-children"><a href="#0">Blog</a>
+                        <ul>
+                            <li><a href="{% url 'blog' %}">Blog Entries</a></li>
+                            <li><a href="{% url 'post_detail' pk=1 %}">Detailed Blog</a></li>
+                        </ul>
+                    </li>
+                    {% if user.is_authenticated %}
+                    <li><a href="#0">Hello, {{user.first_name}}</a></li>
+                    <li><a href="accounts/logout">Logout</a></li>
+                    {% else %}
+                    <li><a href="accounts/register">Register</a></li>
+                    <li><a href="accounts/login">Login</a></li>
+                    {% endif %}
+                </ul> <!-- end #nav -->
+
+           </div> 
+
+        </nav> <!-- end #nav-wrap -->
+
+        <a class="header-menu-toggle" href="#0" title="Menu"><span>Menu</span></a>
+
+    </header> <!-- Header End -->
+
+    <form action="write" method="POST">
+        {% csrf_token %}
+        <label>Blog Title: </label>
+        <input type="text" name="title" placeholder="Write your Blog title here...">
+        <label>Blog Category: </label>
+        <input list="categories" name="category" placeholder="Choose a suitable category...">
+        <datalist id="categories">
+            <option value="Current Affairs">Current Affairs</option>
+            <option value="Business">Business</option>
+            <option value="Technology">Technology</option>
+            <option value="Entertainment">Entertainment</option>
+            <option value="Sports">Sports</option>
+            <option value="Science">Science</option>
+            <option value="Health">Health</option>
+            <option value="Uncategorized">Uncategorized</option>
+        </datalist>
+        <label>Blog Tag:</label>
+        <input type="text" name="tags" placeholder="Give it a major tag...">
+        <label>Blog Body:</label>
+        <textarea rows="60" cols="120" name="body" placeholder="Heart of your Blog"></textarea>
+        <input type="submit">
+    </form>
+    <!-- Footer
+    ================================================== -->
+    <footer class="s-footer">
+
+        <div class="row s-footer__top">
+            <div class="column">
+                <ul class="s-footer__social">
+                    <li><a href="#0"><i class="fab fa-facebook-f" aria-hidden="true"></i></a></li>
+                    <li><a href="#0"><i class="fab fa-twitter" aria-hidden="true"></i></a></li>
+                    <li><a href="#0"><i class="fab fa-youtube" aria-hidden="true"></i></a></li>
+                    <li><a href="#0"><i class="fab fa-vimeo-v" aria-hidden="true"></i></a></li>
+                    <li><a href="#0"><i class="fab fa-instagram" aria-hidden="true"></i></a></li>
+                    <li><a href="#0"><i class="fab fa-linkedin" aria-hidden="true"></i></a></li>
+                    <li><a href="#0"><i class="fab fa-skype" aria-hidden="true"></i></a></li>
+                </ul>
+            </div>
+        </div> <!-- end footer__top -->
+
+        <div class="row s-footer__bottom">
+
+            <div class="large-6 tab-full column s-footer__info">
+                <h3 class="h6">About Theory</h3>
+
+                <p>
+                Lorem ipsum Ullamco commodo laboris sit dolore commodo aliquip incididunt fugiat esse dolor 
+                aute fugiat minim eiusmod do velit labore fugiat officia ad sit culpa labore in consectetur 
+                sint cillum sint consectetur voluptate adipisicing Duis
+                </p>
+
+                <p>
+                Lorem ipsum Sed nulla deserunt voluptate elit occaecat culpa cupidatat sit irure sint 
+                sint incididunt cupidatat esse in Ut sed commodo tempor consequat culpa fugiat incididunt.
+                </p>
+            </div>
+
+            <div class="large-6 tab-full column">
+                <div class="row">
+                    <div class="large-8 tab-full column">
+
+                        <h3 class="h6">Photostream</h3>
+                        
+                        <ul class="photostream group">
+                            <li><a href="#0"><img alt="thumbnail" src="{% static 'images/thumb.jpg' %}"></a></li>
+                            <li><a href="#0"><img alt="thumbnail" src="{% static 'images/thumb.jpg' %}"></a></li>
+                            <li><a href="#0"><img alt="thumbnail" src="{% static 'images/thumb.jpg' %}"></a></li>
+                            <li><a href="#0"><img alt="thumbnail" src="{% static 'images/thumb.jpg' %}"></a></li>
+                            <li><a href="#0"><img alt="thumbnail" src="{% static 'images/thumb.jpg' %}"></a></li>
+                            <li><a href="#0"><img alt="thumbnail" src="{% static 'images/thumb.jpg' %}"></a></li>
+                            <li><a href="#0"><img alt="thumbnail" src="{% static 'images/thumb.jpg' %}"></a></li>
+                            <li><a href="#0"><img alt="thumbnail" src="{% static 'images/thumb.jpg' %}"></a></li>
+                        </ul>
+        
+                    </div>
+        
+                    <div class="large-4 tab-full column">
+                        <h3  class="h6">Navigate</h3>
+        
+                        <ul class="s-footer__list s-footer-list--nav group">
+                            <li><a href="{% url 'index' %}">Home</a></li>	
+                            <li><a href="{% url 'write' %}">Write your blog</a></li>
+                            <li><a href="{% url 'blog' %}">Blog Entries</a></li>
+                            <li><a href="{% url 'post_detail' pk=1 %}">Detailed Blog</a></li>
+                            {% if user.is_authenticated %}
+                            <li><a href="#0">Hello, {{user.first_name}}</a></li>
+                            <li><a href="accounts/logout">Logout</a></li>
+                            {% else %}
+                            <li><a href="accounts/register">Register</a></li>
+                            <li><a href="accounts/login">Login</a></li>
+                            {% endif %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="ss-copyright">
+                <span>© Copyright Theory 2019</span> 
+                <span>Design by Shuvanshu Gupta</span>
+            </div>
+
+        </div> <!-- end footer__bottom -->
+
+
+        <div class="ss-go-top">
+            <a class="smoothscroll" title="Back to Top" href="#top">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M12 0l8 9h-6v15h-4v-15h-6z"/></svg>
+            </a>
+        </div> <!-- end ss-go-top -->
+
+    </footer> <!-- end Footer-->
+
+
+    <!-- Java Script
+    ================================================== -->
+    <script src="{% static 'js/jquery-3.2.1.min.js' %}"></script>
+    <script src="{% static 'js/main.js' %}"></script>
+</body>
+</html>
