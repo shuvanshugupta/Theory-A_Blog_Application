@@ -76,8 +76,7 @@ WSGI_APPLICATION = 'billing.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
-DATABASES['default'] = dj_database_url.config(
-    default='postgres://tjvtdbkqmponkp:d375ea63824bfe99fac6da4cd432efccbfb9215710afa14a2270350a049325ae@ec2-54-234-28-165.compute-1.amazonaws.com:5432/d9d4eqnq3o0npv')
+DATABASES['default'] = dj_database_url.config(default='postgres://tjvtdbkqmponkp:d375ea63824bfe99fac6da4cd432efccbfb9215710afa14a2270350a049325ae@ec2-54-234-28-165.compute-1.amazonaws.com:5432/d9d4eqnq3o0npv')
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
 
